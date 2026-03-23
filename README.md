@@ -1,4 +1,4 @@
-# 🛒 Order Management API (MySQL & JWT Auth)
+# 🛒 Order Management API (DEMO) (MySQL & JWT Auth)
 
 Bu proje, temel e-ticaret süreçlerini (ürün yönetimi ve sipariş stok takibi) göstermek amacıyla geliştirilmiş, **Clean Architecture** prensiplerinden ilham alan güvenli bir ASP.NET Core Web API projesidir.
 
