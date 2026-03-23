@@ -50,15 +50,8 @@ public class OrdersController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<OrderDto>> Create([FromBody] CreateOrderDto dto)
     {
-        try
-        {
-            var order = await _orderService.CreateOrderAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = order.Id }, order);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        var order = await _orderService.CreateOrderAsync(dto);
+        return CreatedAtAction(nameof(GetById), new { id = order.Id }, order);
     }
 
     /// <summary>
@@ -86,19 +79,12 @@ public class OrdersController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Cancel(int id)
     {
-        try
-        {
-            var result = await _orderService.CancelOrderAsync(id);
+        var result = await _orderService.CancelOrderAsync(id);
 
-            if (!result)
-                return NotFound(new { message = $"ID {id} ile sipariş bulunamadı." });
+        if (!result)
+            return NotFound(new { message = $"ID {id} ile sipariş bulunamadı." });
 
-            return NoContent();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return NoContent();
     }
 }
 

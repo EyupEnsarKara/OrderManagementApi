@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OrderManagementApi.Data;
+using OrderManagementApi.Middlewares;
 using OrderManagementApi.Services.Implementations;
 using OrderManagementApi.Services.Interfaces;
 
@@ -21,6 +22,9 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
+
+// ── Standart Exception Yakalama Middleware'i ──
+app.UseGlobalExceptionHandler();
 
 // ── Seed Data'yı InMemory DB'ye yükle ──
 using (var scope = app.Services.CreateScope())

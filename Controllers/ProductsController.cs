@@ -49,15 +49,8 @@ public class ProductsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<ProductDto>> Create([FromBody] CreateProductDto dto)
     {
-        try
-        {
-            var product = await _productService.CreateProductAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        var product = await _productService.CreateProductAsync(dto);
+        return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
     }
 
     /// <summary>
@@ -66,19 +59,12 @@ public class ProductsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult<ProductDto>> Update(int id, [FromBody] CreateProductDto dto)
     {
-        try
-        {
-            var product = await _productService.UpdateProductAsync(id, dto);
+        var product = await _productService.UpdateProductAsync(id, dto);
 
-            if (product == null)
-                return NotFound(new { message = $"ID {id} ile ürün bulunamadı." });
+        if (product == null)
+            return NotFound(new { message = $"ID {id} ile ürün bulunamadı." });
 
-            return Ok(product);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return Ok(product);
     }
 
     /// <summary>
