@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using OrderManagementApi.Data;
 using OrderManagementApi.Middlewares;
@@ -9,6 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 // ── Swagger / OpenAPI ──
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// ── Fluent Validation ──
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 // ── Controllers ──
 builder.Services.AddControllers();
