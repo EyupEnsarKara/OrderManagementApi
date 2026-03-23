@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrderManagementApi.Models.DTOs;
 using OrderManagementApi.Services.Interfaces;
@@ -8,6 +9,7 @@ namespace OrderManagementApi.Controllers;
 /// Ürün ekleme, listeleme, güncelleme ve silme (soft delete) isteklerini karşılar.
 /// İş mantığı IProductService'e devredilir.
 /// </summary>
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class ProductsController : ControllerBase
@@ -22,6 +24,7 @@ public class ProductsController : ControllerBase
     /// <summary>
     /// Tüm aktif ürünleri listeler.
     /// </summary>
+    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ProductDto>>> GetAll()
     {
@@ -32,6 +35,7 @@ public class ProductsController : ControllerBase
     /// <summary>
     /// ID ile tek ürün getirir.
     /// </summary>
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<ActionResult<ProductDto>> GetById(int id)
     {

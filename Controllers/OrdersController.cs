@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrderManagementApi.Models.DTOs;
 using OrderManagementApi.Models.Enums;
@@ -9,6 +10,7 @@ namespace OrderManagementApi.Controllers;
 /// Sipariş oluşturma, listeleme, durum güncelleme ve iptal isteklerini karşılar.
 /// İş mantığı IOrderService'e devredilir.
 /// </summary>
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class OrdersController : ControllerBase
