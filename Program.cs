@@ -67,9 +67,10 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 // ── Controllers ──
 builder.Services.AddControllers();
 
-// ── EF Core - InMemory Database ──
+// ── EF Core - MySQL Database ──
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseInMemoryDatabase("OrderManagementDb"));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 // ── Dependency Injection - Services ──
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -80,11 +81,11 @@ var app = builder.Build();
 // ── Standart Exception Yakalama Middleware'i ──
 app.UseGlobalExceptionHandler();
 
-// ── Seed Data'yı InMemory DB'ye yükle ──
+// ── Gerçek Veritabanına Tabloları Yükle (Migration) ──
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    context.Database.EnsureCreated();
+    context.Database.Migrate(); // Tablolar MySQL de yoksa anında yaratır
 }
 
 // ── HTTP Pipeline ──
