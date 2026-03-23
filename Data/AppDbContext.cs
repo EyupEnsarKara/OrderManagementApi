@@ -28,11 +28,9 @@ public class AppDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(200);
 
-            entity.Property(p => p.Price)
-                .HasColumnType("decimal(18,2)");
-
-            entity.Property(p => p.IsActive)
-                .HasDefaultValue(true);
+            // SQL Server'a geçince aktif edilecek
+            // entity.Property(p => p.Price).HasColumnType("decimal(18,2)");
+            // entity.Property(p => p.IsActive).HasDefaultValue(true);
         });
 
         // ── Order Konfigürasyonu ──
@@ -40,11 +38,9 @@ public class AppDbContext : DbContext
         {
             entity.HasKey(o => o.Id);
 
-            entity.Property(o => o.UnitPrice)
-                .HasColumnType("decimal(18,2)");
-
-            entity.Property(o => o.TotalPrice)
-                .HasColumnType("decimal(18,2)");
+            // SQL Server'a geçince aktif edilecek
+            // entity.Property(o => o.UnitPrice).HasColumnType("decimal(18,2)");
+            // entity.Property(o => o.TotalPrice).HasColumnType("decimal(18,2)");
 
             // Foreign Key ilişkisi: Order → Product
             // Restrict: Ürün silinirse siparişler silinmemeli
